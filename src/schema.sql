@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS jobs (
     company TEXT NOT NULL,
     location TEXT,
     date_posted DATE,
-    url TEXT UNIQUE
+    url TEXT UNIQUE,
+    date_begins DATE
 );

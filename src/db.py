@@ -6,9 +6,11 @@ class Database:
         self.conn.executescript(open('src/schema.sql').read())
 
 
-    def insert_job(self, job: dict):
+    def insert_job(self, joblist: list):
         with self.conn:
-            self.conn.execute('''
-                INSERT OR IGNORE INTO jobs (referenznummer, type, title, company, location, date_posted, url)
-                VALUES (:referenznummer, :type, :title, :company, :location, :date_posted, :url)
-            ''', job)
+            for job in joblist:
+                self.conn.execute('''
+                    INSERT OR IGNORE INTO jobs (referenznummer, type, title, company, location, date_posted, url, date_begins)
+                    VALUES (:referenznummer, :type, :title, :company, :location, :date_posted, :url, :date_begins)
+                ''', job)
+            self.conn.commit()
