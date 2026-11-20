@@ -1,5 +1,6 @@
 import requests
 import json
+from src.filter import Filters
 from src.db import Database
 jobkind_requests = ["Fachinformatiker für Systemintegration", "Fachinformatiker Anwendungsentwicklung", "Fachinformatiker für Daten- und Prozessanalyse"]
 headers = {"X-API-Key": "jobboerse-jobsuche"}
@@ -39,4 +40,5 @@ if __name__ == "__main__":
         params["was"] = jobkind
         response = requests.request('GET', 'https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc/v6/jobs', params=params,headers=headers)
         data.extend(poshla_dota(response.json()))
+    data = Filters.filter_jobs(data)
     db.insert_job(data)
